@@ -1,0 +1,11 @@
+name: compact_u1_mon_TDA
+channels:
+  - conda-forge
+  - defaults
+dependencies:
+  - h5py=3.10.0
+  - matplotlib=3.8.2
+  - pymbar=4.0.2
+  - python=3.10.13
+  - scikit-learn=1.4.0
+  - scipy=1.12.0

@@ -1,0 +1,26 @@
+title: >-
+  Topological Data Analysis of Monopoles in U(1) Lattice
+  Gauge Theory
+message: >-
+  If you use this software, please cite it using the
+  metadata from this file.
+type: software
+authors:
+  - given-names: Xavier
+    family-names: Crean
+    email: 2237451@swansea.ac.uk
+    orcid: 'https://orcid.org/0009-0007-8620-6243'
+    affiliation: Swansea University
+  - given-names: Jeffrey
+    orcid: 'https://orcid.org/0000-0003-4252-0058'
+    family-names: Giansiracusa
+    email: jeffrey.giansiracusa@durham.ac.uk
+    affiliation: Durham University
+  - given-names: Biagio
+    family-names: Lucini
+    email: b.lucini@swansea.ac.uk
+    affiliation: Swansea University
+    orcid: 'https://orcid.org/0000-0001-8974-8266'
+identifiers:
+  - type: doi
+    value: 10.1234/zenodo.4321
