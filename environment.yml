@@ -3,7 +3,7 @@ channels:
   - conda-forge
   - defaults
 dependencies:
-  - giotto-tda=0.6.0
+  - giotto-tda
   - h5py=3.10.0
   - matplotlib=3.8.2
   - numpy=1.26.4
