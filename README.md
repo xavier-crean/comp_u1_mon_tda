@@ -9,7 +9,7 @@ This repository contains code for
 A directory tree is included at the bottom of this file.
 
 ## Code to generate lattice configuration data
-The code to generate U(1) lattice gauge field configurations, which is largely written in C, forms part of a wider package for simulating lattice gauge field theories. It must be configured, built and run using a Linux distribution. The software is stored in `/src/data/` and contains its own 
+The code to generate U(1) lattice gauge field configurations, which is largely written in C, forms part of a wider package for simulating lattice gauge field theories. It must be configured, built and run using a Linux distribution. The software is stored in `src/data/` and contains its own 
 * [README.md][mc_README] (software details), 
 * [INSTALL][mc_INSTALL] file (installation instructions) 
 * and [AUTHORS][mc_AUTHORS] file.
@@ -19,9 +19,9 @@ Using this code, one may reproduce the ensemble averages quoted in the [paper][p
 ## Code to perform analysis of data
 The code to perform analysis of lattice gauge field configurations is written in Python. See Section 2.2 and Section 3 in the [paper][paper].
 
-Raw lattice configuration data is processed by the scripts in directory `/src/observables/`. Collectively, this may take several hours to compute. For reproducibility, our processed data is included in the [data release][data] to be stored in directory `/data/observables/`.
+Raw lattice configuration data is processed by the scripts in directory `src/observables/`. Collectively, this may take several hours to compute. For reproducibility, our processed data is included in the [data release][data] to be stored in directory `data/observables/`.
 
-With intermediate saved data from the [data release][data], one may quickly reproduce the results from the [paper][paper] by running the script `/src/analysis/analysis.py`. 
+With intermediate saved data from the [data release][data], one may quickly reproduce the results from the [paper][paper] by running the script `src/analysis/analysis.py`. 
 
 ### Setup
 
@@ -40,31 +40,31 @@ Dependencies are documented in `environment.yml` and are most easily managed via
 
 #### Data
 
-* Download the data from [the accompanying data release][data] into the directory `/data/`.
-* To use intermediate saved files, extract the contents of `intermediate.zip` into the directory `/data/intermediate/`.
+* Download the data from [the accompanying data release][data] into the directory `data/`.
+* To use intermediate saved files, extract the contents of `intermediate.zip` into the directory `data/intermediate/`.
 ---
 
 ### Processing the raw lattice configuration data
-The directory `/src/observables/` contains two python scripts and a python module:
+The directory `src/observables/` contains two python scripts and a python module:
 * `action.py` for computing the total action of a lattice configuration; it takes four command line arguments: lattice size L, $\beta$ value (to 4d.p.), number of samples and number of sweeps between measurement. E.g.,
 
       python action.py 6 0.9000 200 350000
-    The output is saved into directory `/data/observables/action/L.L.L.L/` in `.h5` format.
+    The output is saved into directory `data/observables/action/L.L.L.L/` in `.h5` format.
 * `persistence_diagram.py` for computing the zeroth and first order homology of monopole current networks of a lattice configuration; it takes five command line arguments: lattice size L, $\beta$ (to 4d.p.), number of samples, number of sweeps between measurement and number of parallel computations. E.g.,
 
       python persistence_diagram.py 6 0.9000 200 350000 2
-    The output is saved into directory `/data/observables/pd/L.L.L.L/` in `.h5` format.
+    The output is saved into directory `data/observables/pd/L.L.L.L/` in `.h5` format.
 * `configurations.py` a module used to parse lattice configurations from raw configuration data files.
 
 ### Performing the analysis
-The directory `/src/analysis/` contains the python script `analysis.py` which
-* makes directories `/reports/` and `/reports/figures/` (if they don't exist already),
-* computes the average action observable and the Betti number observables, then saves figures in `.png` format into `/reports/figures/`,
-* and outputs results from a finite-size scaling analysis into `/reports/`
+The directory `src/analysis/` contains the python script `analysis.py` which
+* makes directories `reports/` and `reports/figures/` (if they don't exist already),
+* computes the average action observable and the Betti number observables, then saves figures in `.png` format into `reports/figures/`,
+* and outputs results from a finite-size scaling analysis into `reports/`
     * in `.csv` format (with and without header) 
     * and in `.tex` format (for a LaTeX table).
 
-Intermediate saved files, for checkpointing and running the code quickly second time round, are stored in the directory `/data/intermediate/`. To use the files in `intermediate.zip` (from the [data release][data]), it is important to ensure the correct random seeds are used. With the intermediate files, `analysis.py` takes a few minutes to run; without them, it takes a few hours.
+Intermediate saved files, for checkpointing and running the code quickly second time round, are stored in the directory `data/intermediate/`. To use the files in `intermediate.zip` (from the [data release][data]), it is important to ensure the correct random seeds are used. With the intermediate files, `analysis.py` takes a few minutes to run; without them, it takes a few hours.
 
 The script is run using
 
@@ -103,6 +103,6 @@ The script is run using
 
 [data]: https://doi.org/10.5281/zenodo.7060073
 [paper]: https://arxiv.org/abs/2207.13392
-[mc_README]: /src/data/README.md,
-[mc_AUTHORS]: /src/data/AUTHORS
-[mc_install]: /src/data/INSTALL
+[mc_README]: src/data/README.md,
+[mc_AUTHORS]: src/data/AUTHORS
+[mc_install]: src/data/INSTALL
