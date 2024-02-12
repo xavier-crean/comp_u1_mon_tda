@@ -52,7 +52,7 @@ Using [mybinder.org][binder], a Docker container with necessary dependencies has
 
 Note that 
 1. the [data release][data] must be uploaded and extracted into the root directory;
-2. the python script `src/analysis/analysis.py` has been converted into a jupyter notebook `src/analysis/analysis.ipynb` which, when run, does the exact same as the script.
+2. since Binder opens JupyterHub, the python script `src/analysis/analysis.py` has been converted into a jupyter notebook `src/analysis/analysis.ipynb` which, when run, does the exact same as the script.
 
 ---
 
