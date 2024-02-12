@@ -40,8 +40,20 @@ Dependencies are documented in `environment.yml` and are most easily managed via
 
 #### Data
 
-* Download the data from [the accompanying data release][data] into the directory `data/`.
-* To use intermediate saved files, extract the contents of `intermediate.zip` into the directory `data/intermediate/`.
+* Download the `data.tar.gz` from [the accompanying data release][data].
+* Extract using
+
+        tar -xf data.tar.gz
+* To use intermediate saved files, ensure that they have been extracted into the directory `data/intermediate/`. Remove/rename this directory to ignore them.
+
+### Binder
+
+Using [mybinder.org][binder], a Docker container with necessary dependencies has been constructed for quick reproduction of the results in the paper: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/xc2237451/comp_u1_mon_tda.git/HEAD)
+
+Note that 
+1. the [data release][data] must be uploaded and extracted into the root directory;
+2. the python script `src/analysis/analysis.py` has been converted into a jupyter notebook `src/analysis/analysis.ipynb` which, when run, does the exact same as the script.
+
 ---
 
 ### Processing the raw lattice configuration data
@@ -106,3 +118,4 @@ The script is run using
 [mc_README]: src/data/README.md,
 [mc_AUTHORS]: src/data/AUTHORS
 [mc_install]: src/data/INSTALL
+[binder]: https://mybinder.org/
