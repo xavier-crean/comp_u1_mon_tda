@@ -9,6 +9,13 @@ import h5py
 import os
 import matplotlib
 
+# Create cached_data/
+try:
+    os.makedirs("cached_data/")
+except FileExistsError:
+    # directory already exists
+    pass
+
 # Create reports/
 try:
     os.makedirs("reports/")
@@ -498,18 +505,14 @@ yerr_b1 = np.sqrt(np.var(pseudo_bcs_b1_bs, axis=0))
 
 # ### Print pseudo-critical betas
 
-# Save as a .csv file
+# Import polars library to manipulate date in a DataFrame
+import polars as pl
 
-# Save .csv with header and first column
-head = np.array(['L','E','E_err','rho_b0','rho_b0_err','rho_b1','rho_b1_err']).reshape(-1,7)
-csv = np.array(
-    [[f'{Ls[l]}',f'{pseudo_bcs_E[l]}',f'{yerr_E[l]}',f'{pseudo_bcs_b0[l]}',f'{yerr_b0[l]}',f'{pseudo_bcs_b1[l]}',f'{yerr_b1[l]}'] for l in range(len(Ls))]
-)
-csv_head = np.concatenate([head,csv],axis=0)
-np.savetxt("reports/pseudo_bcs.csv", csv_head, delimiter=",", fmt='%s')
+# Save .csv with header
+df = pl.DataFrame([[Ls[l],pseudo_bcs_E[l],yerr_E[l],pseudo_bcs_b0[l],yerr_b0[l],pseudo_bcs_b1[l],yerr_b1[l]] for l in range(len(Ls))])
+df.columns = ['L','E','E_err','rho_b0','rho_b0_err','rho_b1','rho_b1_err']
+df.write_csv("reports/pseudo_bcs.csv")
 
-
-# Save as a .tex file
 
 def format_NIST(m,u):
     '''Formats measurement and standard error in NIST:
@@ -522,7 +525,7 @@ def format_NIST(m,u):
     round_u = str(int(np.round(u * 10**(-u_order))))
     return round_m + '(' + round_u + ')'
 
-
+# Save as a .tex file
 # Write table with pseudo_bcs to .tex file 
 filename = 'reports/pseudo_beta_c.tex'
 with open(filename,'w') as f:
@@ -557,7 +560,7 @@ inverted_d = 1/d
 # Set x as inverse power of the volume V = L^d
 x = Ls**-(1/inverted_d)
 
-def ffs_rchi2(Ls_for_reg,deg,y,y_bs):
+def fss_rchi2(type,Ls_for_reg,deg,y,y_bs):
     '''Function to output range,k_max,reduced_chi2,beta_c,beta_c_err'''
     # Perform polynomial regression
     poly_features = PolynomialFeatures(degree=deg, include_bias=False)
@@ -568,9 +571,6 @@ def ffs_rchi2(Ls_for_reg,deg,y,y_bs):
     intercepts = [LinearRegression().fit(X_poly[Ls_for_reg], y_bs[i][Ls_for_reg]).intercept_ 
                    for i in range(N_bootstraps)]
     intercept_err = np.sqrt(np.var(intercepts))
-    coefs = [LinearRegression().fit(X_poly[Ls_for_reg], y_bs[i][Ls_for_reg]).coef_ 
-                       for i in range(N_bootstraps)]
-    coef_err = np.sqrt(np.var(coefs))
     
     # Compute reduced chi-squared statistic
     f_obs = y[Ls_for_reg]
@@ -580,122 +580,43 @@ def ffs_rchi2(Ls_for_reg,deg,y,y_bs):
     nu = f_obs.size - (deg+1)
     reduced_chi2 = chi2 / nu
     
-    return f'{Ls[Ls_for_reg]}',deg,f'{reduced_chi2:.3f}',lin_reg.intercept_,intercept_err,format_NIST(lin_reg.intercept_,intercept_err)
+    return type,Ls[Ls_for_reg][0],Ls[Ls_for_reg][-1],deg,reduced_chi2,lin_reg.intercept_,intercept_err,f'{reduced_chi2:.3f}',format_NIST(lin_reg.intercept_,intercept_err)
 
+# ### Save FSS results
 
-# ### Print FSS results for $E$
+# Define the range of Ls values to be used in FSS
+range_ = [[4,5,6],[2,3,4,5,6],[0,1,2,3,4,5,6]]
+
+# Compute fss results and store in polars DataFrame
+results = [[fss_rchi2(type,range_[i],d,ps_bc,ps_bc_bs) for i in range(len(range_)) for d in range(1,len(range_[i])-1)]
+      for type,ps_bc,ps_bc_bs in [('E',pseudo_bcs_E,pseudo_bcs_E_bs),('rho_b0',pseudo_bcs_b0,pseudo_bcs_b0_bs),('rho_b1',pseudo_bcs_b1,pseudo_bcs_b1_bs)]]
+df = pl.concat([pl.DataFrame(results[i]) for i in range(len(results))])
+df.columns = ['observable', 'range_min', 'range_max', 'k_max', 'chi_per_dof', 'beta_c', 'beta_c_err', 'str_chi_per_dof','beta_c_NIST']
 
 # Save as a .csv file
+df[:,:7].write_csv("reports/fss.csv")
 
-# Save .csv with header
-head = np.array(['Range','k_max','chi_per_dof','beta_c','beta_c_err'])
-range_ = [[4,5,6],[2,3,4,5,6],[0,1,2,3,4,5,6]]
-ls = [ffs_rchi2(range_[i],d,pseudo_bcs_E,pseudo_bcs_E_bs)[:-1] for i in range(len(range_)) for d in range(1,len(range_[i])-1)]
-csv = np.concatenate([np.array(['Range','k_max','chi_per_dof','beta_c','beta_c_err']).reshape(-1,5),np.array([element for tup in ls for element in tup]).reshape(-1,5)],axis=0)
-np.savetxt("reports/ffs_E.csv", csv, delimiter=",",fmt='%s')
+# Save in format for LaTeX table in .tex file
+def save_tex_file(data,fn):
+    with open(fn,'w') as f:
+        tab_content = r'''
+            $10,11,12$ & ${}$ & ${}$ & ${}$ \\
+            \hline
+            $8,9,10,11,12$ & ${}$ & ${}$ & ${}$ \\
+                & ${}$ & ${}$ & ${}$ \\
+                & ${}$ & ${}$ & ${}$ \\
+            \hline
+            $6,7,8,9,10,11,12$ & ${}$ & ${}$ & ${}$ \\
+                & ${}$ & ${}$ & ${}$ \\
+                & ${}$ & ${}$ & ${}$ \\
+                & ${}$ & ${}$ & ${}$ \\
+                & ${}$ & ${}$ & ${}$
+        '''.format(*data.to_numpy().flatten())
+        tab_content.replace('\n','')
+        f.write(tab_content)
+    return None
 
-
-# Save as .tex file
-
-# Write table with pseudo_bcs to .tex file 
-filename = 'reports/ffs_E.tex'
-with open(filename,'w') as f:
-    range_ = [[4,5,6],[2,3,4,5,6],[0,1,2,3,4,5,6]]
-    ls = [ffs_rchi2(range_[i],d,pseudo_bcs_E,pseudo_bcs_E_bs) for i in range(len(range_)) for d in range(1,len(range_[i])-1)]
-    data = np.array([element for tup in ls for element in tup]).reshape(-1,6)[:,[1,2,5]]
-    tab_content = r'''
-        $10,11,12$ & ${}$ & ${}$ & ${}$ \\
-        \hline
-        $8,9,10,11,12$ & ${}$ & ${}$ & ${}$ \\
-               & ${}$ & ${}$ & ${}$ \\
-               & ${}$ & ${}$ & ${}$ \\
-        \hline
-        $6,7,8,9,10,11,12$ & ${}$ & ${}$ & ${}$ \\
-               & ${}$ & ${}$ & ${}$ \\
-               & ${}$ & ${}$ & ${}$ \\
-               & ${}$ & ${}$ & ${}$ \\
-               & ${}$ & ${}$ & ${}$
-    '''.format(*[item for sublist in data for item in sublist])
-    tab_content.replace('\n','')
-    f.write(tab_content)
-
-
-# ### Plot Polynomial Regression for $\rho_{b_{0}}$
-
-# ### Print FSS results for $\rho_{b_{0}}$
-
-# Save as a .csv file
-
-# Save .csv with header
-head = np.array(['Range','k_max','chi_per_dof','beta_c','beta_c_err'])
-range_ = [[4,5,6],[2,3,4,5,6],[0,1,2,3,4,5,6]]
-ls = [ffs_rchi2(range_[i],d,pseudo_bcs_b0,pseudo_bcs_b0_bs)[:-1] for i in range(len(range_)) for d in range(1,len(range_[i])-1)]
-csv = np.concatenate([np.array(['Range','k_max','chi_per_dof','beta_c','beta_c_err']).reshape(-1,5),np.array([element for tup in ls for element in tup]).reshape(-1,5)],axis=0)
-np.savetxt("reports/ffs_rho_b0.csv", csv, delimiter=",",fmt='%s')
-
-
-# Save as .tex file
-
-
-# Write table with pseudo_bcs to .tex file 
-filename = 'reports/ffs_rho_b0.tex'
-with open(filename,'w') as f:
-    range_ = [[4,5,6],[2,3,4,5,6],[0,1,2,3,4,5,6]]
-    ls = [ffs_rchi2(range_[i],d,pseudo_bcs_b0,pseudo_bcs_b0_bs) for i in range(len(range_)) for d in range(1,len(range_[i])-1)]
-    data = np.array([element for tup in ls for element in tup]).reshape(-1,6)[:,[1,2,5]]
-    tab_content = r'''
-        $10,11,12$ & ${}$ & ${}$ & ${}$ \\
-        \hline
-        $8,9,10,11,12$ & ${}$ & ${}$ & ${}$ \\
-               & ${}$ & ${}$ & ${}$ \\
-               & ${}$ & ${}$ & ${}$ \\
-        \hline
-        $6,7,8,9,10,11,12$ & ${}$ & ${}$ & ${}$ \\
-               & ${}$ & ${}$ & ${}$ \\
-               & ${}$ & ${}$ & ${}$ \\
-               & ${}$ & ${}$ & ${}$ \\
-               & ${}$ & ${}$ & ${}$
-    '''.format(*[item for sublist in data for item in sublist])
-    tab_content.replace('\n','')
-    f.write(tab_content)
-
-
-# ### Plot Polynomial Regression for $\rho_{b_{1}}$
-
-# ### Print FSS results for $\rho_{b_{1}}$
-
-# Save as a .csv file
-
-# Save .csv with header
-head = np.array(['Range','k_max','chi_per_dof','beta_c','beta_c_err'])
-range_ = [[4,5,6],[2,3,4,5,6],[0,1,2,3,4,5,6]]
-ls = [ffs_rchi2(range_[i],d,pseudo_bcs_b1,pseudo_bcs_b1_bs)[:-1] for i in range(len(range_)) for d in range(1,len(range_[i])-1)]
-csv = np.concatenate([np.array(['Range','k_max','chi_per_dof','beta_c','beta_c_err']).reshape(-1,5),np.array([element for tup in ls for element in tup]).reshape(-1,5)],axis=0)
-np.savetxt("reports/ffs_rho_b1.csv", csv, delimiter=",",fmt='%s')
-
-
-# Save as .tex file
-
-# Write table with pseudo_bcs to .tex file 
-filename = 'reports/ffs_rho_b1.tex'
-with open(filename,'w') as f:
-    range_ = [[4,5,6],[2,3,4,5,6],[0,1,2,3,4,5,6]]
-    ls = [ffs_rchi2(range_[i],d,pseudo_bcs_b1,pseudo_bcs_b1_bs) for i in range(len(range_)) for d in range(1,len(range_[i])-1)]
-    data = np.array([element for tup in ls for element in tup]).reshape(-1,6)[:,[1,2,5]]
-    tab_content = r'''
-        $10,11,12$ & ${}$ & ${}$ & ${}$ \\
-        \hline
-        $8,9,10,11,12$ & ${}$ & ${}$ & ${}$ \\
-               & ${}$ & ${}$ & ${}$ \\
-               & ${}$ & ${}$ & ${}$ \\
-        \hline
-        $6,7,8,9,10,11,12$ & ${}$ & ${}$ & ${}$ \\
-               & ${}$ & ${}$ & ${}$ \\
-               & ${}$ & ${}$ & ${}$ \\
-               & ${}$ & ${}$ & ${}$ \\
-               & ${}$ & ${}$ & ${}$
-    '''.format(*[item for sublist in data for item in sublist])
-    tab_content.replace('\n','')
-    f.write(tab_content)
-
-
+ind = [3,-2,-1]
+save_tex_file(df[:9,ind],"reports/fss_E.tex")
+save_tex_file(df[9:18,ind],"reports/fss_rho_b0.tex")
+save_tex_file(df[18:,ind],"reports/fss_rho_b1.tex")
