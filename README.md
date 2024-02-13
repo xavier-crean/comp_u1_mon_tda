@@ -58,25 +58,25 @@ Note that
 
 ### Processing the raw lattice configuration data
 The directory `src/observables/` contains two python scripts and a python module:
-* `action.py` for computing the total action of a lattice configuration; it takes four command line arguments: lattice size L, $\beta$ value (to 4d.p.), number of samples and number of sweeps between measurement. E.g.,
+* `src/observables/action.py` for computing the total action of a lattice configuration; it takes four command line arguments: lattice size L, $\beta$ value (to 4d.p.), number of samples and number of sweeps between measurement. E.g.,
 
-      python action.py 6 0.9000 200 350000
+      python src/observables/action.py 6 0.9000 200 350000
     The output is saved into directory `data/observables/action/L.L.L.L/` in `.h5` format.
-* `persistence_diagram.py` for computing the zeroth and first order homology of monopole current networks of a lattice configuration; it takes five command line arguments: lattice size L, $\beta$ (to 4d.p.), number of samples, number of sweeps between measurement and number of parallel computations. E.g.,
+* `src/observables/persistence_diagram.py` for computing the zeroth and first order homology of monopole current networks of a lattice configuration; it takes five command line arguments: lattice size L, $\beta$ (to 4d.p.), number of samples, number of sweeps between measurement and number of parallel computations. E.g.,
 
-      python persistence_diagram.py 6 0.9000 200 350000 2
+      python src/observables/persistence_diagram.py 6 0.9000 200 350000 2
     The output is saved into directory `data/observables/pd/L.L.L.L/` in `.h5` format.
-* `configurations.py` a module used to parse lattice configurations from raw configuration data files.
+* `src/observables/configurations.py` a module used to parse lattice configurations from raw configuration data files.
 
 ### Performing the analysis
-The directory `src/analysis/` contains the python script `analysis.py` which
+The python script `src/analysis/analysis.py` which
 * makes directories `reports/` and `reports/figures/` (if they don't exist already),
-* computes the average action observable and the Betti number observables, then saves figures in `.png` format into `reports/figures/`,
+* computes the average action observable and the Betti number observables, then saves figures in `.pdf` format into `reports/figures/`,
 * and outputs results from a finite-size scaling analysis into `reports/`
     * in `.csv` format (with header) 
     * and in `.tex` format (for a LaTeX table).
 
-Intermediate saved files, for checkpointing and running the code quickly second time round, are stored in the directory `data/intermediate/`. To use the files in `intermediate.zip` (from the [data release][data]), it is important to ensure the correct random seeds are used. With the intermediate files, `analysis.py` takes a few minutes to run; without them, it takes a few hours.
+Intermediate saved files, for checkpointing and running the code quickly second time round, are stored in the directory `data/intermediate/`. To use the files in `intermediate.zip` (from the [data release][data]), it is important to ensure the correct random seeds are used. With the intermediate files, `src/analysis/analysis.py` takes a few minutes to run; without them, it takes a few hours.
 
 The script is run using
 
