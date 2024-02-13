@@ -76,7 +76,7 @@ The python script `src/analysis/analysis.py` which
     * in `.csv` format (with header) 
     * and in `.tex` format (for a LaTeX table).
 
-Intermediate saved files, for checkpointing and running the code quickly second time round, are stored in the directory `data/intermediate/`. To use the files in `intermediate.zip` (from the [data release][data]), it is important to ensure the correct random seeds are used. With the intermediate files, `src/analysis/analysis.py` takes a few minutes to run; without them, it takes a few hours.
+Intermediary files, for caching and running the code quickly second time round, are stored in the directory `cached_data/`. To use the files in `cached_data.tar.gz` (from the [data release][data]), it is important to ensure the correct random seeds are used. With the intermediary files, `src/analysis/analysis.py` takes less than a minute to run; without them, it takes about an hour.
 
 The script is run using
 

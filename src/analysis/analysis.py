@@ -120,7 +120,7 @@ def multiplicity_total(pd):
     return np.array([[np.sum(temp[s][i]) for i in range(2)] for s in range(N)])
 
 # Load Betti number .h5 file if exists (else compute and save)
-filename = f"cached_data/intermediate_betti_num_{Ls[0]}-{Ls[-1]}.h5"
+filename = f"cached_data/cache_betti_num_{Ls[0]}-{Ls[-1]}.h5"
 if os.path.exists(filename):
     with h5py.File(filename, 'r') as hf:
         h = hf['h'][()]
@@ -325,7 +325,7 @@ rw_betas_linear = [rw_betas_linear6,rw_betas_linear7,rw_betas_linear8,rw_betas_l
 rw_means_linear = []
 rw_vars_linear = []
 for l in range(len(Ls)):
-    filename = f"cached_data/intermediate_linear_rw{np.min(rw_betas_linear[l])}-{np.max(rw_betas_linear[l])}_Ls={Ls[l]}_E.h5"
+    filename = f"cached_data/cache_rw_{np.min(rw_betas_linear[l])}-{np.max(rw_betas_linear[l])}_Ls={Ls[l]}_E.h5"
     if os.path.exists(filename):
         with h5py.File(filename, 'r') as hf:
             rw_means_linear.append(hf['rw_means_linear'][()])
@@ -347,7 +347,7 @@ rw_vars_linear_E = np.concatenate(rw_vars_linear)
 rw_means_linear = []
 rw_vars_linear = []
 for l in range(len(Ls)):
-    filename = f"cached_data/intermediate_linear_rw{np.min(rw_betas_linear[l])}-{np.max(rw_betas_linear[l])}_Ls={Ls[l]}_H0.h5"
+    filename = f"cached_data/cache_rw_{np.min(rw_betas_linear[l])}-{np.max(rw_betas_linear[l])}_Ls={Ls[l]}_H0.h5"
     if os.path.exists(filename):
         with h5py.File(filename, 'r') as hf:
             rw_means_linear.append(hf['rw_means_linear'][()])
@@ -369,7 +369,7 @@ rw_vars_linear_b0 = np.concatenate(rw_vars_linear)
 rw_means_linear = []
 rw_vars_linear = []
 for l in range(len(Ls)):
-    filename = f"cached_data/intermediate_linear_rw{np.min(rw_betas_linear[l])}-{np.max(rw_betas_linear[l])}_Ls={Ls[l]}_H1.h5"
+    filename = f"cached_data/cache_rw_{np.min(rw_betas_linear[l])}-{np.max(rw_betas_linear[l])}_Ls={Ls[l]}_H1.h5"
     if os.path.exists(filename):
         with h5py.File(filename, 'r') as hf:
             rw_means_linear.append(hf['rw_means_linear'][()])
@@ -412,7 +412,7 @@ E_bootstrap = np.array([[np.array([(s[l]/(6*(Ls[l]**4)))[b,bootstraps[l][b][i]] 
 
 # For each lattice size, compute and/or multiple histogram reweighting of E bootstraps
 for l in range(len(Ls)):
-    filename = f"cached_data/intermediate_data_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_E.h5"
+    filename = f"cached_data/cache_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_E.h5"
     if not os.path.exists(filename):
         rw_means_linear_E_bs_l = []
         rw_vars_linear_E_bs_l = []
@@ -426,7 +426,7 @@ for l in range(len(Ls)):
 rw_means_linear_E_bs = []
 rw_vars_linear_E_bs = []
 for l in range(len(Ls)):
-    filename = f"cached_data/intermediate_data_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_E.h5"
+    filename = f"cached_data/cache_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_E.h5"
     with h5py.File(filename, 'r') as hf:
         rw_means_linear_E_bs.append(hf['rw_means_linear_E_bs'][()])
         rw_vars_linear_E_bs.append(hf['rw_vars_linear_E_bs'][()])
@@ -438,7 +438,7 @@ rw_vars_linear_E_bs = np.concatenate(rw_vars_linear_E_bs,axis=1)
 
 # For each lattice size, compute and/or multiple histogram reweighting of b0 bootstraps
 for l in range(len(Ls)):
-    filename = f"cached_data/intermediate_data_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_b0.h5"
+    filename = f"cached_data/cache_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_b0.h5"
     if not os.path.exists(filename):
         rw_means_linear_b0_bs_l = []
         rw_vars_linear_b0_bs_l = []
@@ -452,7 +452,7 @@ for l in range(len(Ls)):
 rw_means_linear_b0_bs = []
 rw_vars_linear_b0_bs = []
 for l in range(len(Ls)):
-    filename = f"cached_data/intermediate_data_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_b0.h5"
+    filename = f"cached_data/cache_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_b0.h5"
     with h5py.File(filename, 'r') as hf:
         rw_means_linear_b0_bs.append(hf['rw_means_linear_b0_bs'][()])
         rw_vars_linear_b0_bs.append(hf['rw_vars_linear_b0_bs'][()])
@@ -465,7 +465,7 @@ rw_vars_linear_b0_bs = np.concatenate(rw_vars_linear_b0_bs,axis=1)
 
 # For each lattice size, compute and/or multiple histogram reweighting of b1 bootstraps
 for l in range(len(Ls)):
-    filename = f"cached_data/intermediate_data_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_b1.h5"
+    filename = f"cached_data/cache_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_b1.h5"
     if not os.path.exists(filename):
         rw_means_linear_b1_bs_l = []
         rw_vars_linear_b1_bs_l = []
@@ -479,7 +479,7 @@ for l in range(len(Ls)):
 rw_means_linear_b1_bs = []
 rw_vars_linear_b1_bs = []
 for l in range(len(Ls)):
-    filename = f"cached_data/intermediate_data_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_b1.h5"
+    filename = f"cached_data/cache_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_b1.h5"
     with h5py.File(filename, 'r') as hf:
         rw_means_linear_b1_bs.append(hf['rw_means_linear_b1_bs'][()])
         rw_vars_linear_b1_bs.append(hf['rw_vars_linear_b1_bs'][()])
