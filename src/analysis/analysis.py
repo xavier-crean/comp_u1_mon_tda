@@ -9,16 +9,16 @@ import h5py
 import os
 import matplotlib
 
-# Create ../../reports/
+# Create reports/
 try:
-    os.makedirs("../../reports/")
+    os.makedirs("reports/")
 except FileExistsError:
     # directory already exists
     pass
 
-# Create ../../reports/figures/
+# Create reports/figures/
 try:
-    os.makedirs("../../reports/figures/")
+    os.makedirs("reports/figures/")
 except FileExistsError:
     # directory already exists
     pass
@@ -113,13 +113,13 @@ def multiplicity_total(pd):
     return np.array([[np.sum(temp[s][i]) for i in range(2)] for s in range(N)])
 
 # Load Betti number .h5 file if exists (else compute and save)
-filename = f"../../data/intermediate/betti_num_{Ls[0]}-{Ls[-1]}.h5"
+filename = f"cached_data/intermediate_betti_num_{Ls[0]}-{Ls[-1]}.h5"
 if os.path.exists(filename):
     with h5py.File(filename, 'r') as hf:
         h = hf['h'][()]
 else:
     # Load persistence diagram .h5 files, compute Betti numbers and save as .h5 file
-    pd = [[h5py.File(f'../../data/observables/pd/{Ls[l]}.{Ls[l]}.{Ls[l]}.{Ls[l]}/pers_mon_Ns={Ls[l]}{Ls[l]}{Ls[l]}{Ls[l]}_b={b:.4f}.h5', "r").get('persistence')[()] 
+    pd = [[h5py.File(f'data/observables/pd/{Ls[l]}.{Ls[l]}.{Ls[l]}.{Ls[l]}/pers_mon_Ns={Ls[l]}{Ls[l]}{Ls[l]}{Ls[l]}_b={b:.4f}.h5', "r").get('persistence')[()] 
             for b in betas[l]] 
         for l in range(len(Ls))]
     h = np.array([[multiplicity_total(pd[l][b]) 
@@ -158,7 +158,7 @@ plt.legend(loc='upper left')
 plt.tight_layout()
 plt.locator_params(axis='x', nbins=10)
 plt.legend(loc='upper left')
-plt.savefig("../../reports/figures/p_b0_scatter.png")
+plt.savefig("reports/figures/p_b0_scatter.pdf", format="pdf")
 plt.clf()
 
 plt.figure()
@@ -176,7 +176,7 @@ plt.legend(loc='upper left')
 plt.tight_layout()
 plt.locator_params(axis='x', nbins=10)
 plt.legend(loc='upper left')
-plt.savefig("../../reports/figures/p_b0_scatter_ZOOM.png")
+plt.savefig("reports/figures/p_b0_scatter_ZOOM.pdf", format="pdf")
 plt.clf()
 
 # Generate b1 bootstrap distribution
@@ -197,7 +197,7 @@ plt.legend(loc='upper left')
 plt.tight_layout()
 plt.locator_params(axis='x', nbins=10)
 plt.legend(loc='upper right')
-plt.savefig("../../reports/figures/p_b1_scatter.png")
+plt.savefig("reports/figures/p_b1_scatter.pdf", format="pdf")
 plt.clf()
 
 plt.figure()
@@ -215,7 +215,7 @@ plt.legend(loc='upper left')
 plt.tight_layout()
 plt.locator_params(axis='x', nbins=10)
 plt.legend(loc='upper right')
-plt.savefig("../../reports/figures/p_b1_scatter_ZOOM.png")
+plt.savefig("reports/figures/p_b1_scatter_ZOOM.pdf", format="pdf")
 plt.clf()
 
 # Plot $\rho_{b_{0}}$ vs $\rho_{b_{1}}$
@@ -232,7 +232,7 @@ plt.ylabel(r'$ \langle \rho_{b_{1}} \rangle $')
 plt.tight_layout()
 plt.locator_params(axis='x', nbins=10)
 plt.legend(loc='upper right')
-plt.savefig("../../reports/figures/p_b0_vs_p_b1_scatter.png")
+plt.savefig("reports/figures/p_b0_vs_p_b1_scatter.pdf", format="pdf")
 plt.clf()
 
 plt.figure()
@@ -251,7 +251,7 @@ plt.locator_params(axis='x', nbins=5)
 plt.locator_params(axis='y', nbins=5)
 plt.tight_layout()
 plt.legend(loc='upper left')
-plt.savefig("../../reports/figures/p_b0_vs_p_b1_scatter_ZOOM.png")
+plt.savefig("reports/figures/p_b0_vs_p_b1_scatter_ZOOM.pdf", format="pdf")
 plt.clf()
 
 # ---
@@ -266,7 +266,7 @@ plt.clf()
 # Load action .h5 files and compute $\Delta S$
 
 # Load action .h5 files
-s = np.array([[h5py.File(f'../../data/observables/action/{Ls[l]}.{Ls[l]}.{Ls[l]}.{Ls[l]}/action_mon_Ns={Ls[l]}{Ls[l]}{Ls[l]}{Ls[l]}_b={betas[l][b]:.4f}.h5', "r").get('action')[()] 
+s = np.array([[h5py.File(f'data/observables/action/{Ls[l]}.{Ls[l]}.{Ls[l]}.{Ls[l]}/action_mon_Ns={Ls[l]}{Ls[l]}{Ls[l]}{Ls[l]}_b={betas[l][b]:.4f}.h5', "r").get('action')[()] 
       for b in range(len(betas[l]))] 
      for l in range(len(Ls))])
 
@@ -318,7 +318,7 @@ rw_betas_linear = [rw_betas_linear6,rw_betas_linear7,rw_betas_linear8,rw_betas_l
 rw_means_linear = []
 rw_vars_linear = []
 for l in range(len(Ls)):
-    filename = f"../../data/intermediate/intermediate_linear_rw{np.min(rw_betas_linear[l])}-{np.max(rw_betas_linear[l])}_Ls={Ls[l]}_E.h5"
+    filename = f"cached_data/intermediate_linear_rw{np.min(rw_betas_linear[l])}-{np.max(rw_betas_linear[l])}_Ls={Ls[l]}_E.h5"
     if os.path.exists(filename):
         with h5py.File(filename, 'r') as hf:
             rw_means_linear.append(hf['rw_means_linear'][()])
@@ -340,7 +340,7 @@ rw_vars_linear_E = np.concatenate(rw_vars_linear)
 rw_means_linear = []
 rw_vars_linear = []
 for l in range(len(Ls)):
-    filename = f"../../data/intermediate/intermediate_linear_rw{np.min(rw_betas_linear[l])}-{np.max(rw_betas_linear[l])}_Ls={Ls[l]}_H0.h5"
+    filename = f"cached_data/intermediate_linear_rw{np.min(rw_betas_linear[l])}-{np.max(rw_betas_linear[l])}_Ls={Ls[l]}_H0.h5"
     if os.path.exists(filename):
         with h5py.File(filename, 'r') as hf:
             rw_means_linear.append(hf['rw_means_linear'][()])
@@ -362,7 +362,7 @@ rw_vars_linear_b0 = np.concatenate(rw_vars_linear)
 rw_means_linear = []
 rw_vars_linear = []
 for l in range(len(Ls)):
-    filename = f"../../data/intermediate/intermediate_linear_rw{np.min(rw_betas_linear[l])}-{np.max(rw_betas_linear[l])}_Ls={Ls[l]}_H1.h5"
+    filename = f"cached_data/intermediate_linear_rw{np.min(rw_betas_linear[l])}-{np.max(rw_betas_linear[l])}_Ls={Ls[l]}_H1.h5"
     if os.path.exists(filename):
         with h5py.File(filename, 'r') as hf:
             rw_means_linear.append(hf['rw_means_linear'][()])
@@ -405,7 +405,7 @@ E_bootstrap = np.array([[np.array([(s[l]/(6*(Ls[l]**4)))[b,bootstraps[l][b][i]] 
 
 # For each lattice size, compute and/or multiple histogram reweighting of E bootstraps
 for l in range(len(Ls)):
-    filename = f"../../data/intermediate/intermediate_data_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_E.h5"
+    filename = f"cached_data/intermediate_data_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_E.h5"
     if not os.path.exists(filename):
         rw_means_linear_E_bs_l = []
         rw_vars_linear_E_bs_l = []
@@ -419,7 +419,7 @@ for l in range(len(Ls)):
 rw_means_linear_E_bs = []
 rw_vars_linear_E_bs = []
 for l in range(len(Ls)):
-    filename = f"../../data/intermediate/intermediate_data_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_E.h5"
+    filename = f"cached_data/intermediate_data_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_E.h5"
     with h5py.File(filename, 'r') as hf:
         rw_means_linear_E_bs.append(hf['rw_means_linear_E_bs'][()])
         rw_vars_linear_E_bs.append(hf['rw_vars_linear_E_bs'][()])
@@ -431,7 +431,7 @@ rw_vars_linear_E_bs = np.concatenate(rw_vars_linear_E_bs,axis=1)
 
 # For each lattice size, compute and/or multiple histogram reweighting of b0 bootstraps
 for l in range(len(Ls)):
-    filename = f"../../data/intermediate/intermediate_data_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_b0.h5"
+    filename = f"cached_data/intermediate_data_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_b0.h5"
     if not os.path.exists(filename):
         rw_means_linear_b0_bs_l = []
         rw_vars_linear_b0_bs_l = []
@@ -445,7 +445,7 @@ for l in range(len(Ls)):
 rw_means_linear_b0_bs = []
 rw_vars_linear_b0_bs = []
 for l in range(len(Ls)):
-    filename = f"../../data/intermediate/intermediate_data_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_b0.h5"
+    filename = f"cached_data/intermediate_data_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_b0.h5"
     with h5py.File(filename, 'r') as hf:
         rw_means_linear_b0_bs.append(hf['rw_means_linear_b0_bs'][()])
         rw_vars_linear_b0_bs.append(hf['rw_vars_linear_b0_bs'][()])
@@ -458,7 +458,7 @@ rw_vars_linear_b0_bs = np.concatenate(rw_vars_linear_b0_bs,axis=1)
 
 # For each lattice size, compute and/or multiple histogram reweighting of b1 bootstraps
 for l in range(len(Ls)):
-    filename = f"../../data/intermediate/intermediate_data_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_b1.h5"
+    filename = f"cached_data/intermediate_data_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_b1.h5"
     if not os.path.exists(filename):
         rw_means_linear_b1_bs_l = []
         rw_vars_linear_b1_bs_l = []
@@ -472,7 +472,7 @@ for l in range(len(Ls)):
 rw_means_linear_b1_bs = []
 rw_vars_linear_b1_bs = []
 for l in range(len(Ls)):
-    filename = f"../../data/intermediate/intermediate_data_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_b1.h5"
+    filename = f"cached_data/intermediate_data_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_b1.h5"
     with h5py.File(filename, 'r') as hf:
         rw_means_linear_b1_bs.append(hf['rw_means_linear_b1_bs'][()])
         rw_vars_linear_b1_bs.append(hf['rw_vars_linear_b1_bs'][()])
@@ -500,21 +500,13 @@ yerr_b1 = np.sqrt(np.var(pseudo_bcs_b1_bs, axis=0))
 
 # Save as a .csv file
 
-
-# Save .csv withOUT header or first column
-csv = np.array(
-    [[pseudo_bcs_E[l],yerr_E[l],pseudo_bcs_b0[l],yerr_b0[l],pseudo_bcs_b1[l],yerr_b1[l]] for l in range(len(Ls))]
-)
-np.savetxt("../../reports/pseudo_bcs.csv", csv, delimiter=",",fmt='%s')
-
-
 # Save .csv with header and first column
 head = np.array(['L','E','E_err','rho_b0','rho_b0_err','rho_b1','rho_b1_err']).reshape(-1,7)
 csv = np.array(
     [[f'{Ls[l]}',f'{pseudo_bcs_E[l]}',f'{yerr_E[l]}',f'{pseudo_bcs_b0[l]}',f'{yerr_b0[l]}',f'{pseudo_bcs_b1[l]}',f'{yerr_b1[l]}'] for l in range(len(Ls))]
 )
 csv_head = np.concatenate([head,csv],axis=0)
-np.savetxt("../../reports/pseudo_bcs_HEADER.csv", csv_head, delimiter=",", fmt='%s')
+np.savetxt("reports/pseudo_bcs.csv", csv_head, delimiter=",", fmt='%s')
 
 
 # Save as a .tex file
@@ -532,7 +524,7 @@ def format_NIST(m,u):
 
 
 # Write table with pseudo_bcs to .tex file 
-filename = '../../reports/pseudo_beta_c.tex'
+filename = 'reports/pseudo_beta_c.tex'
 with open(filename,'w') as f:
     data = [(format_NIST(pseudo_bcs_E[l],yerr_E[l]),format_NIST(pseudo_bcs_b0[l],yerr_b0[l]), format_NIST(pseudo_bcs_b1[l],yerr_b1[l])) for l in range(len(Ls))]
     tab_content = r'''
@@ -595,26 +587,18 @@ def ffs_rchi2(Ls_for_reg,deg,y,y_bs):
 
 # Save as a .csv file
 
-
-# Save .csv with header or first column
-range_ = [[4,5,6],[2,3,4,5,6],[0,1,2,3,4,5,6]]
-ls = [ffs_rchi2(range_[i],d,pseudo_bcs_E,pseudo_bcs_E_bs)[:-1] for i in range(len(range_)) for d in range(1,len(range_[i])-1)]
-csv = np.array([element for tup in ls for element in tup]).reshape(-1,5)
-np.savetxt("../../reports/ffs_E.csv", csv, delimiter=",",fmt='%s')
-
-
 # Save .csv with header
 head = np.array(['Range','k_max','chi_per_dof','beta_c','beta_c_err'])
 range_ = [[4,5,6],[2,3,4,5,6],[0,1,2,3,4,5,6]]
 ls = [ffs_rchi2(range_[i],d,pseudo_bcs_E,pseudo_bcs_E_bs)[:-1] for i in range(len(range_)) for d in range(1,len(range_[i])-1)]
 csv = np.concatenate([np.array(['Range','k_max','chi_per_dof','beta_c','beta_c_err']).reshape(-1,5),np.array([element for tup in ls for element in tup]).reshape(-1,5)],axis=0)
-np.savetxt("../../reports/ffs_E_HEADER.csv", csv, delimiter=",",fmt='%s')
+np.savetxt("reports/ffs_E.csv", csv, delimiter=",",fmt='%s')
 
 
 # Save as .tex file
 
 # Write table with pseudo_bcs to .tex file 
-filename = '../../reports/ffs_E.tex'
+filename = 'reports/ffs_E.tex'
 with open(filename,'w') as f:
     range_ = [[4,5,6],[2,3,4,5,6],[0,1,2,3,4,5,6]]
     ls = [ffs_rchi2(range_[i],d,pseudo_bcs_E,pseudo_bcs_E_bs) for i in range(len(range_)) for d in range(1,len(range_[i])-1)]
@@ -642,27 +626,19 @@ with open(filename,'w') as f:
 
 # Save as a .csv file
 
-
-# Save .csv withOUT header
-range_ = [[4,5,6],[2,3,4,5,6],[0,1,2,3,4,5,6]]
-ls = [ffs_rchi2(range_[i],d,pseudo_bcs_b0,pseudo_bcs_b0_bs)[:-1] for i in range(len(range_)) for d in range(1,len(range_[i])-1)]
-csv = np.array([element for tup in ls for element in tup]).reshape(-1,5)
-np.savetxt("../../reports/ffs_rho_b0.csv", csv, delimiter=",",fmt='%s')
-
-
 # Save .csv with header
 head = np.array(['Range','k_max','chi_per_dof','beta_c','beta_c_err'])
 range_ = [[4,5,6],[2,3,4,5,6],[0,1,2,3,4,5,6]]
 ls = [ffs_rchi2(range_[i],d,pseudo_bcs_b0,pseudo_bcs_b0_bs)[:-1] for i in range(len(range_)) for d in range(1,len(range_[i])-1)]
 csv = np.concatenate([np.array(['Range','k_max','chi_per_dof','beta_c','beta_c_err']).reshape(-1,5),np.array([element for tup in ls for element in tup]).reshape(-1,5)],axis=0)
-np.savetxt("../../reports/ffs_rho_b0_HEADER.csv", csv, delimiter=",",fmt='%s')
+np.savetxt("reports/ffs_rho_b0.csv", csv, delimiter=",",fmt='%s')
 
 
 # Save as .tex file
 
 
 # Write table with pseudo_bcs to .tex file 
-filename = '../../reports/ffs_rho_b0.tex'
+filename = 'reports/ffs_rho_b0.tex'
 with open(filename,'w') as f:
     range_ = [[4,5,6],[2,3,4,5,6],[0,1,2,3,4,5,6]]
     ls = [ffs_rchi2(range_[i],d,pseudo_bcs_b0,pseudo_bcs_b0_bs) for i in range(len(range_)) for d in range(1,len(range_[i])-1)]
@@ -690,26 +666,18 @@ with open(filename,'w') as f:
 
 # Save as a .csv file
 
-
-# Save .csv withOUT header
-range_ = [[4,5,6],[2,3,4,5,6],[0,1,2,3,4,5,6]]
-ls = [ffs_rchi2(range_[i],d,pseudo_bcs_b1,pseudo_bcs_b1_bs)[:-1] for i in range(len(range_)) for d in range(1,len(range_[i])-1)]
-csv = np.array([element for tup in ls for element in tup]).reshape(-1,5)
-np.savetxt("../../reports/ffs_rho_b1.csv", csv, delimiter=",",fmt='%s')
-
-
 # Save .csv with header
 head = np.array(['Range','k_max','chi_per_dof','beta_c','beta_c_err'])
 range_ = [[4,5,6],[2,3,4,5,6],[0,1,2,3,4,5,6]]
 ls = [ffs_rchi2(range_[i],d,pseudo_bcs_b1,pseudo_bcs_b1_bs)[:-1] for i in range(len(range_)) for d in range(1,len(range_[i])-1)]
 csv = np.concatenate([np.array(['Range','k_max','chi_per_dof','beta_c','beta_c_err']).reshape(-1,5),np.array([element for tup in ls for element in tup]).reshape(-1,5)],axis=0)
-np.savetxt("../../reports/ffs_rho_b1_HEADER.csv", csv, delimiter=",",fmt='%s')
+np.savetxt("reports/ffs_rho_b1.csv", csv, delimiter=",",fmt='%s')
 
 
 # Save as .tex file
 
 # Write table with pseudo_bcs to .tex file 
-filename = '../../reports/ffs_rho_b1.tex'
+filename = 'reports/ffs_rho_b1.tex'
 with open(filename,'w') as f:
     range_ = [[4,5,6],[2,3,4,5,6],[0,1,2,3,4,5,6]]
     ls = [ffs_rchi2(range_[i],d,pseudo_bcs_b1,pseudo_bcs_b1_bs) for i in range(len(range_)) for d in range(1,len(range_[i])-1)]

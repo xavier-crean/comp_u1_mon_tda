@@ -1,4 +1,5 @@
 data/
+cached_data/
 !src/data/
 reports/
 *.ipynb
