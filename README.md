@@ -113,8 +113,8 @@ The script is run using
             └── analysis.py
 ---
 
-[data]: https://doi.org/10.5281/zenodo.7060073
-[paper]: https://arxiv.org/abs/2207.13392
+[data]: 
+[paper]: 
 [mc_README]: src/data/README.md,
 [mc_AUTHORS]: src/data/AUTHORS
 [mc_install]: src/data/INSTALL
