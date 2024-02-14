@@ -805,7 +805,7 @@ E_bootstrap = np.array(
 
 # For $E$, compute multiple histogram reweighting of bootstraps
 
-# For each lattice size, compute and/or multiple histogram reweighting of E bootstraps
+# For each lattice size, compute and/or load multiple histogram reweighting of E bootstraps
 for l in range(len(Ls)):
     filename = f"cached_data/cache_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_E.h5"
     if not os.path.exists(filename):
@@ -833,7 +833,7 @@ rw_vars_linear_E_bs = np.concatenate(rw_vars_linear_E_bs, axis=1)
 
 # For $\rho_{b_{0}}$, compute multiple histogram reweighting of bootstraps
 
-# For each lattice size, compute and/or multiple histogram reweighting of b0 bootstraps
+# For each lattice size, compute and/or load multiple histogram reweighting of b0 bootstraps
 for l in range(len(Ls)):
     filename = f"cached_data/cache_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_b0.h5"
     if not os.path.exists(filename):
@@ -861,7 +861,7 @@ rw_vars_linear_b0_bs = np.concatenate(rw_vars_linear_b0_bs, axis=1)
 
 # For $\rho_{b_{1}}$, compute multiple histogram reweighting of bootstraps
 
-# For each lattice size, compute and/or multiple histogram reweighting of b1 bootstraps
+# For each lattice size, compute and/or load multiple histogram reweighting of b1 bootstraps
 for l in range(len(Ls)):
     filename = f"cached_data/cache_bootstraps_seed={bootstrap_seed}_rw_Ls={Ls[l]}_b1.h5"
     if not os.path.exists(filename):
