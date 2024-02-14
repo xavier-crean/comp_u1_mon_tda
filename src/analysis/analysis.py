@@ -1066,7 +1066,16 @@ df.columns = [
 ]
 
 # Save as a .csv file
-df[:, :7].write_csv("reports/fss.csv")
+col_csv = [
+    "observable",
+    "range_min",
+    "range_max",
+    "k_max",
+    "chi_per_dof",
+    "beta_c",
+    "beta_c_err",
+]
+df.select(pl.col(col_csv)).write_csv("reports/fss.csv")
 
 
 # Save in format for LaTeX table in .tex file
@@ -1090,7 +1099,8 @@ def save_tex_file(data, fn):
     return None
 
 
-ind = [3, -2, -1]
-save_tex_file(df[:9, ind], "reports/fss_E.tex")
-save_tex_file(df[9:18, ind], "reports/fss_rho_b0.tex")
-save_tex_file(df[18:, ind], "reports/fss_rho_b1.tex")
+ob = ["E", "rho_b0", "rho_b1"]
+col_tex = ["k_max", "str_chi_per_dof", "beta_c_NIST"]
+for i in range(len(ob)):
+    df_tex = df.filter(pl.col("observable") == ob[i]).select(pl.col(col_tex))
+    save_tex_file(df_tex, f"reports/fss_{ob[i]}.tex")
