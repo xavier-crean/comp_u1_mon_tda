@@ -50,9 +50,8 @@ Dependencies are documented in `environment.yml` and are most easily managed via
 
 Using [mybinder.org][binder], a Docker container with necessary dependencies has been constructed for quick reproduction of the results in the paper: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/xc2237451/comp_u1_mon_tda.git/HEAD)
 
-Note that 
-1. the [data release][data] must be uploaded and extracted into the root directory;
-2. since Binder opens JupyterHub, the python script `src/analysis/analysis.py` has been converted into a jupyter notebook `src/analysis/analysis.ipynb` which, when run, does the exact same as the script.
+Note that the [data release][data] must be uploaded and extracted into the root directory.
+<!-- 2. since Binder opens JupyterHub, the python script `src/analysis/analysis.py` has been converted into a jupyter notebook `src/analysis/analysis.ipynb` which, when run, does the exact same as the script. -->
 
 ---
 
@@ -88,10 +87,10 @@ The script is run using
     ├── LICENSE
     ├── README.md          <- The top-level README for developers using this project.
     ├── data
-    │   ├── intermediate   <- Intermediate saved files in .h5 format.
     │   ├── observables    <- Action and persistence diagrams saved in .h5 format.
     |   └── configurations <- Lattice gauge field configuration data stored in conf.dat in IDLG-like format.
     │
+    ├── cached_data        <- Intermediate cached data files in .h5 format for faster reproduction of results.
     ├── reports            <- Generated tables used in the paper as .csv and .tex.
     │   └── figures        <- Generated figures used in the paper as .png.
     │
