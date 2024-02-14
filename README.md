@@ -21,7 +21,7 @@ The code to perform analysis of lattice gauge field configurations is written in
 
 Raw lattice configuration data is processed by the scripts in directory `src/observables/`. Collectively, this may take several hours to compute. For reproducibility, our processed data is included in the [data release][data] to be stored in directory `data/observables/`.
 
-With cached data from the [data release][data], one may quickly reproduce the plots and results from the [paper][paper] by running the script `src/analysis/analysis.py`. 
+Plots and results from the [paper][paper] may be reproduced by running the script `src/analysis/analysis.py`. This will generate cached data, stored in `cached_data/`, for quicker re-runs. The pre-computed cached data has been provided in the [data release][data].
 
 ### Setup
 
@@ -30,6 +30,8 @@ With cached data from the [data release][data], one may quickly reproduce the pl
 The code has been tested with Python 3.10. 
 
 Dependencies are documented in `environment.yml` and are most easily managed via a Conda environment. 
+
+The commands below refer to a Linux or compatible environment and need to be run from the root directory of the repository.
 
 #### Installation
 * Download the repository
@@ -40,10 +42,10 @@ Dependencies are documented in `environment.yml` and are most easily managed via
 
 #### Data
 
-* Download the `data.tar.gz` from [the accompanying data release][data] and extract using
+* Download the `data.tar.gz` from [the accompanying data release][data] and extract into the root directory of the repository using
 
         tar -xf data.tar.gz
-* To use cached data files, download `cached_data.tar.gz` from the [data release][data] and extract using
+* To use cached data files, download `cached_data.tar.gz` from the [data release][data] and extract into the root directory of the repository using
 
         tar -xf cached_data.tar.gz
 
@@ -70,7 +72,7 @@ The directory `src/observables/` contains two python scripts and a python module
 
 ### Performing the analysis
 The python script `src/analysis/analysis.py` which
-* makes directories `reports/` and `reports/figures/` (if they don't exist already),
+* makes directories `cached_data/`, `reports/` and `reports/figures/` (if they don't exist already),
 * computes the average action observable and the Betti number observables, then saves figures in `.pdf` format into `reports/figures/`,
 * and outputs results from a finite-size scaling analysis into `reports/`
     * in `.csv` format (with header) 
