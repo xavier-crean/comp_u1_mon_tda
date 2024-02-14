@@ -117,7 +117,7 @@ The script is run using
 
 [data]: 
 [paper]: 
-[mc_README]: src/data/README,
+[mc_README]: src/data/README
 [mc_AUTHORS]: src/data/AUTHORS
 [mc_install]: src/data/INSTALL
 [binder]: https://mybinder.org/
