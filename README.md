@@ -40,8 +40,7 @@ Dependencies are documented in `environment.yml` and are most easily managed via
 
 #### Data
 
-* Download the `data.tar.gz` from [the accompanying data release][data].
-* Extract using
+* Download the `data.tar.gz` from [the accompanying data release][data] and extract using
 
         tar -xf data.tar.gz
 * To use cached data files, download `cached_data.tar.gz` from the [data release][data] and extract using
