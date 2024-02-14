@@ -80,6 +80,8 @@ The python script `src/analysis/analysis.py` which
 
 Intermediary files, for caching and running the code quickly second time round, are stored in the directory `cached_data/`. To use the files in `cached_data.tar.gz` (from the [data release][data]), it is important to ensure the correct random seeds are used. With the cached data files, `src/analysis/analysis.py` takes less than a minute to run; without them, it takes about an hour.
 
+**N.B.** if `cached_data.tar.gz` is extracted into the root, then `src/analysis/analysis.py` will read from this directory. If you are trying to reproduce the analysis using `data.tar.gz`, you will need to delete or rename the directory `cached_data/`.
+
 The script is run using
 
       python src/analysis/analysis.py
