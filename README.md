@@ -10,7 +10,7 @@ A directory tree is included at the bottom of this file.
 
 ## Code to generate lattice configuration data
 The code to generate U(1) lattice gauge field configurations, which is largely written in C, forms part of a wider package for simulating lattice gauge field theories. It must be configured, built and run using a Linux distribution. The software is stored in `src/data/` and contains its own 
-* [README.md][mc_README] (software details), 
+* [README][mc_README] (software details), 
 * [INSTALL][mc_INSTALL] file (installation instructions) 
 * and [AUTHORS][mc_AUTHORS] file.
 
@@ -117,7 +117,7 @@ The script is run using
 
 [data]: 
 [paper]: 
-[mc_README]: src/data/README.md,
+[mc_README]: src/data/README,
 [mc_AUTHORS]: src/data/AUTHORS
 [mc_install]: src/data/INSTALL
 [binder]: https://mybinder.org/
