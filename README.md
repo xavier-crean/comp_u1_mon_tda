@@ -21,7 +21,7 @@ The code to perform analysis of lattice gauge field configurations is written in
 
 Raw lattice configuration data is processed by the scripts in directory `src/observables/`. Collectively, this may take several hours to compute. For reproducibility, our processed data is included in the [data release][data] to be stored in directory `data/observables/`.
 
-With intermediate saved data from the [data release][data], one may quickly reproduce the results from the [paper][paper] by running the script `src/analysis/analysis.py`. 
+With cached data from the [data release][data], one may quickly reproduce the plots and results from the [paper][paper] by running the script `src/analysis/analysis.py`. 
 
 ### Setup
 
@@ -44,14 +44,16 @@ Dependencies are documented in `environment.yml` and are most easily managed via
 * Extract using
 
         tar -xf data.tar.gz
-* To use intermediate saved files, ensure that they have been extracted into the directory `data/intermediate/`. Remove/rename this directory to ignore them.
+* To use cached data files, download `cached_data.tar.gz` from the [data release][data] and extract using
+
+        tar -xf cached_data.tar.gz
 
 ### Binder
 
-Using [mybinder.org][binder], a Docker container with necessary dependencies has been constructed for quick reproduction of the results in the paper: [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/xc2237451/comp_u1_mon_tda.git/HEAD)
+Using [mybinder.org][binder], a Docker container with necessary dependencies has been constructed for quick reproduction of the results in the paper. Note that the [data release][data] must be uploaded and extracted into the root directory.
 
-Note that the [data release][data] must be uploaded and extracted into the root directory.
-<!-- 2. since Binder opens JupyterHub, the python script `src/analysis/analysis.py` has been converted into a jupyter notebook `src/analysis/analysis.ipynb` which, when run, does the exact same as the script. -->
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/xc2237451/comp_u1_mon_tda.git/HEAD)
+
 
 ---
 
@@ -75,7 +77,7 @@ The python script `src/analysis/analysis.py` which
     * in `.csv` format (with header) 
     * and in `.tex` format (for a LaTeX table).
 
-Intermediary files, for caching and running the code quickly second time round, are stored in the directory `cached_data/`. To use the files in `cached_data.tar.gz` (from the [data release][data]), it is important to ensure the correct random seeds are used. With the intermediary files, `src/analysis/analysis.py` takes less than a minute to run; without them, it takes about an hour.
+Intermediary files, for caching and running the code quickly second time round, are stored in the directory `cached_data/`. To use the files in `cached_data.tar.gz` (from the [data release][data]), it is important to ensure the correct random seeds are used. With the cached data files, `src/analysis/analysis.py` takes less than a minute to run; without them, it takes about an hour.
 
 The script is run using
 
@@ -90,7 +92,7 @@ The script is run using
     │   ├── observables    <- Action and persistence diagrams saved in .h5 format.
     |   └── configurations <- Lattice gauge field configuration data stored in conf.dat in IDLG-like format.
     │
-    ├── cached_data        <- Intermediate cached data files in .h5 format for faster reproduction of results.
+    ├── cached_data        <- Intermediary cached data files in .h5 format for faster reproduction of results.
     ├── reports            <- Generated tables used in the paper as .csv and .tex.
     │   └── figures        <- Generated figures used in the paper as .png.
     │
