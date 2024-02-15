@@ -10,9 +10,9 @@ This repository contains code for
 
 A directory tree is included at the bottom of this file.
 
-Alongside this repository, there exists [an accompanying data release][data] that contains data where [Step 1][step_1] and [Step 2][step_2] have been pre-computed. Therefore, to reproduce the analysis, the user is referred to [Step 3][step_3].
+Alongside this repository, there exists [an accompanying data release][data] that contains data where [Step 1](##code-to-generate-lattice-configuration-data) and [Step 2][step_2] have been pre-computed. Therefore, to reproduce the analysis, the user is referred to [Step 3][step_3].
 
-## Code to generate lattice configuration data (Step 1)
+## Code to generate lattice configuration data
 
 The code to generate U(1) lattice gauge field configurations, which is largely written in C, forms part of a wider package for simulating lattice gauge field theories. It must be configured, built and run using a Linux distribution. The software is stored in `src/data/` and contains its own
 
@@ -135,6 +135,6 @@ The script is run using
 [mc_AUTHORS]: src/data/AUTHORS
 [mc_install]: src/data/INSTALL
 [binder]: https://mybinder.org/
-[step_1]: (##code-to-generate-lattice-configuration-data-(step-1))
+<!-- [step_1]: (##code-to-generate-lattice-configuration-data) -->
 [step_2]: (## Processing the raw lattice configuration data (Step 2))
 [step_3]: (### Performing the analysis (Step 3))
