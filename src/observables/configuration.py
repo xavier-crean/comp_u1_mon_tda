@@ -62,6 +62,9 @@ def parseConfig(config_buffer, HL, L):
 
 def wilsonLoop(conf, t, x, y, z, directions):
     d_mu = [[1 if i == d else 0 for i in range(4)] for d in directions]
+
+    """np.angle takes complex number as input
+    returns: counterclockwise angle from the positive real axis on the complex plane in the range (-pi, pi] with dtype float64"""
     confang = np.angle(conf)
     ang = (
         confang[t, x, y, z, directions[0]]

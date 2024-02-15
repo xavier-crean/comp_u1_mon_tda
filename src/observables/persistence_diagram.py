@@ -15,12 +15,13 @@ e.g. 'py persistence_diagram.py 6 0.9000 200 350000 5'
 PLANE_LABELS = {(0, 1): 0, (0, 2): 1, (0, 3): 2, (1, 2): 3, (1, 3): 4, (2, 3): 5}
 
 
-def diracStringNum(plangvalue):
-    a1 = [plangvalue >= -4 * np.pi, plangvalue < -3 * np.pi]
-    a2 = [plangvalue >= -3 * np.pi, plangvalue < -1 * np.pi]
-    a3 = [plangvalue >= -1 * np.pi, plangvalue < np.pi]
-    a4 = [plangvalue >= np.pi, plangvalue < 3 * np.pi]
-    a5 = [plangvalue >= 3 * np.pi, plangvalue < 4 * np.pi]
+def diracStringNum(plaq_ang):
+    """Take a plaquette angle and return the number of Dirac strings passing through as int"""
+    a1 = [plaq_ang > -4 * np.pi, plaq_ang <= -3 * np.pi]
+    a2 = [plaq_ang > -3 * np.pi, plaq_ang <= -1 * np.pi]
+    a3 = [plaq_ang > -1 * np.pi, plaq_ang <= np.pi]
+    a4 = [plaq_ang > np.pi, plaq_ang <= 3 * np.pi]
+    a5 = [plaq_ang > 3 * np.pi, plaq_ang <= 4 * np.pi]
     if all(a1):
         return -2
     elif all(a2):
@@ -36,6 +37,7 @@ def diracStringNum(plangvalue):
 
 
 def levi_cevita(dim):
+    """Generates Levi-Cevita symbol for dimensions dim"""
     arr = np.zeros(tuple([dim for _ in range(dim)]))
     for x in itertools.permutations(tuple(range(dim))):
         mat = np.zeros((dim, dim), dtype=np.int32)
@@ -46,6 +48,11 @@ def levi_cevita(dim):
 
 
 def mon(plang):
+    """
+    Input: array (dtype=float64) of plaquette angles
+    Return: array (dtype=int32) of monopole currents on dual lattice
+    """
+
     # Dirac string array
     n = np.zeros(plang.shape[:4] + (4, 4), dtype=np.int32)
     for t, x, y, z in itertools.product(*[range(s) for s in plang.shape[:4]]):

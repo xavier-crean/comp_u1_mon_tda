@@ -2,17 +2,17 @@
 
 ## Overview
 
-This repository contains code for
+This repository accompanies the paper [Topological Data Analysis of Monopoles in U(1) Lattice Gauge Theory][paper]. It contains code for
 
-1. generating U(1) lattice gauge field configurations via Monte Carlo simulation, 
-2. computing observables from lattice configurations, 
-3. producing plots and results included in the paper [Topological Data Analysis of Monopoles in U(1) Lattice Gauge Theory][paper].
+1. [generating U(1) lattice gauge field configurations][step_1] via Monte Carlo simulation, 
+2. [computing observables][step_2] from lattice configurations, 
+3. [producing plots and results][step_3] included in the [paper][paper].
 
-A directory tree is included at the bottom of this file.
+A [directory tree](#project-organisation) is included at the bottom of this file.
 
-Alongside this repository, there exists [an accompanying data release][data] that contains data where [Step 1](##code-to-generate-lattice-configuration-data) and [Step 2][step_2] have been pre-computed. Therefore, to reproduce the analysis, the user is referred to [Step 3][step_3].
+Alongside this repository, there exists [an accompanying data release][data] where [Step 1][step_1] and [Step 2][step_2] have been pre-computed. Therefore, to reproduce analysis from the paper using the data release, the user is referred to [Step 3][step_3] ([setup instructions](#setup) are included below).
 
-## Code to generate lattice configuration data
+## Code to generate lattice configuration data (Step 1)
 
 The code to generate U(1) lattice gauge field configurations, which is largely written in C, forms part of a wider package for simulating lattice gauge field theories. It must be configured, built and run using a Linux distribution. The software is stored in `src/data/` and contains its own
 
@@ -24,11 +24,14 @@ Using this code, one may reproduce the ensemble averages quoted in the [paper][p
 
 ## Code to process and analyse configuration data (Step 2 & Step 3)
 
-The code to perform analysis of lattice gauge field configurations is written in Python. See Section 2.2 and Section 3 in the [paper][paper].
+The code to perform analysis of lattice gauge field configurations is written in Python. See Section 2.2 and Section 3 in the [paper][paper]. It consists of two steps:
 
-Raw lattice configuration data is processed by the scripts in directory `src/observables/`. Collectively, this may take several hours to compute. For reproducibility, our processed data is included in the [data release][data] to be stored in directory `data/observables/`.
+* [Step 2][step_2]: Raw lattice configuration data is processed by the scripts in directory `src/observables/`. Collectively, this may take several hours to compute. For reproducibility, our processed data is included in the [data release][data] to be stored in directory `data/observables/`.
+* [Step 3][step_3]: Plots and results from the [paper][paper] may be reproduced by running the script `src/analysis/analysis.py`. This will generate cached data, stored in `cached_data/`, for quicker re-runs. The pre-computed cached data has been provided in the [data release][data].
 
-Plots and results from the [paper][paper] may be reproduced by running the script `src/analysis/analysis.py`. This will generate cached data, stored in `cached_data/`, for quicker re-runs. The pre-computed cached data has been provided in the [data release][data].
+In this section of the pipeline, data files are stored in the [HDF5 format][hdf5].
+
+---
 
 ### Setup
 
@@ -48,7 +51,7 @@ The commands below refer to a Linux or compatible environment and need to be run
       conda env create -f environment.yml
     (Alternatively, create a Python environment with the listed packages.)
 
-#### Data
+#### Data Release
 
 * Download the `data.tar.gz` from [the accompanying data release][data] and extract into the root directory of the repository using
 
@@ -57,11 +60,14 @@ The commands below refer to a Linux or compatible environment and need to be run
 
         tar -xf cached_data.tar.gz
 
+---
+
 ### Binder
 
-Using [mybinder.org][binder], a Docker container with necessary dependencies has been constructed for quick reproduction of the results in the paper. Note that the [data release][data] must be uploaded and extracted into the root directory.
+Using [mybinder.org][binder], a Docker container with [necessary dependencies](#requirements) has been constructed for reproduction of the results in the paper. Note that the [data release][data] must be uploaded and extracted into the root directory (see [data release setup](#data-release)).
 
-[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/xc2237451/comp_u1_mon_tda.git/HEAD)
+[![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/xavier-crean/comp_u1_mon_tda.git/HEAD)
+<!-- [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/xc2237451/comp_u1_mon_tda.git/HEAD) -->
 
 ---
 
@@ -78,6 +84,8 @@ The directory `src/observables/` contains two python scripts and a python module
       python src/observables/persistence_diagram.py 6 0.9000 200 350000 2
     The output is saved into directory `data/observables/pd/L.L.L.L/` in `.h5` format.
 * `src/observables/configurations.py` a module used to parse lattice configurations from raw configuration data files.
+
+---
 
 ### Performing the analysis (Step 3)
 
@@ -135,6 +143,7 @@ The script is run using
 [mc_AUTHORS]: src/data/AUTHORS
 [mc_install]: src/data/INSTALL
 [binder]: https://mybinder.org/
-<!-- [step_1]: (##code-to-generate-lattice-configuration-data) -->
-[step_2]: (## Processing the raw lattice configuration data (Step 2))
-[step_3]: (### Performing the analysis (Step 3))
+[hdf5]: https://www.hdfgroup.org/solutions/hdf5
+[step_1]: #code-to-generate-lattice-configuration-data-step-1
+[step_2]: #processing-the-raw-lattice-configuration-data-step-2
+[step_3]: #performing-the-analysis-step-3
