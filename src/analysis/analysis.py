@@ -623,7 +623,7 @@ s = np.array(
     [
         [
             h5py.File(
-                f"data/observables/action/{Ls[l]}.{Ls[l]}.{Ls[l]}.{Ls[l]}/action_mon_Ns={Ls[l]}{Ls[l]}{Ls[l]}{Ls[l]}_b={betas[l][b]:.4f}.h5",
+                f"data/observables/action/{Ls[l]}.{Ls[l]}.{Ls[l]}.{Ls[l]}/action_mon_Ls={Ls[l]}{Ls[l]}{Ls[l]}{Ls[l]}_b={betas[l][b]:.4f}.h5",
                 "r",
             ).get("action")[()]
             for b in range(len(betas[l]))
