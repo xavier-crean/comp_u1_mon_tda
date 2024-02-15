@@ -398,7 +398,7 @@ else:
     pd = [
         [
             h5py.File(
-                f"data/observables/pd/{Ls[l]}.{Ls[l]}.{Ls[l]}.{Ls[l]}/pers_mon_Ns={Ls[l]}{Ls[l]}{Ls[l]}{Ls[l]}_b={b:.4f}.h5",
+                f"data/observables/pd/{Ls[l]}.{Ls[l]}.{Ls[l]}.{Ls[l]}/pd_mon_Ls={Ls[l]}{Ls[l]}{Ls[l]}{Ls[l]}_b={b:.4f}.h5",
                 "r",
             ).get("persistence")[()]
             for b in betas[l]

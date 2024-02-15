@@ -210,7 +210,7 @@ def main():
         filts = p.map(cubicalFiltration, mons)
         pers = cp.fit_transform(filts)
 
-    filename = f"data/observables/pd/{Ls}.{Ls}.{Ls}.{Ls}/pers_mon_Ns={Ls}{Ls}{Ls}{Ls}_b={b:.4f}.h5"
+    filename = f"data/observables/pd/{Ls}.{Ls}.{Ls}.{Ls}/pd_mon_Ls={Ls}{Ls}{Ls}{Ls}_b={b:.4f}.h5"
     with h5py.File(filename, "w") as hf:
         hf.create_dataset("persistence", data=pers)
 
