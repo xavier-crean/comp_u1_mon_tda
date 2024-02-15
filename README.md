@@ -1,22 +1,29 @@
 # Topological Data Analysis of Monopoles in U(1) Lattice Gauge Theory
 
 ## Overview
+
 This repository contains code for
+
 1. generating U(1) lattice gauge field configurations via Monte Carlo simulation, 
 2. computing observables from lattice configurations, 
 3. producing plots and results included in the paper [Topological Data Analysis of Monopoles in U(1) Lattice Gauge Theory][paper].
 
 A directory tree is included at the bottom of this file.
 
-## Code to generate lattice configuration data
-The code to generate U(1) lattice gauge field configurations, which is largely written in C, forms part of a wider package for simulating lattice gauge field theories. It must be configured, built and run using a Linux distribution. The software is stored in `src/data/` and contains its own 
-* [README][mc_README] (software details), 
-* [INSTALL][mc_INSTALL] file (installation instructions) 
+Alongside this repository, there exists [an accompanying data release][data] that contains data where [Step 1][step_1] and [Step 2][step_2] have been pre-computed. Therefore, to reproduce the analysis, the user is referred to [Step 3][step_3].
+
+## Code to generate lattice configuration data (Step 1)
+
+The code to generate U(1) lattice gauge field configurations, which is largely written in C, forms part of a wider package for simulating lattice gauge field theories. It must be configured, built and run using a Linux distribution. The software is stored in `src/data/` and contains its own
+
+* [README][mc_README] (software details),
+* [INSTALL][mc_INSTALL] file (installation instructions)
 * and [AUTHORS][mc_AUTHORS] file.
 
 Using this code, one may reproduce the ensemble averages quoted in the [paper][paper]. Note that for bit-for-bit reproducibility one must set a fixed random seed and run using the same distribution each time.
 
-## Code to perform analysis of data
+## Code to process and analyse configuration data (Step 2 & Step 3)
+
 The code to perform analysis of lattice gauge field configurations is written in Python. See Section 2.2 and Section 3 in the [paper][paper].
 
 Raw lattice configuration data is processed by the scripts in directory `src/observables/`. Collectively, this may take several hours to compute. For reproducibility, our processed data is included in the [data release][data] to be stored in directory `data/observables/`.
@@ -34,6 +41,7 @@ Dependencies are documented in `environment.yml` and are most easily managed via
 The commands below refer to a Linux or compatible environment and need to be run from the root directory of the repository.
 
 #### Installation
+
 * Download the repository
 * Create a new Conda environment with the necessary dependencies using
 
@@ -55,11 +63,12 @@ Using [mybinder.org][binder], a Docker container with necessary dependencies has
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/xc2237451/comp_u1_mon_tda.git/HEAD)
 
-
 ---
 
-### Processing the raw lattice configuration data
+### Processing the raw lattice configuration data (Step 2)
+
 The directory `src/observables/` contains two python scripts and a python module:
+
 * `src/observables/action.py` for computing the total action of a lattice configuration; it takes four command line arguments: lattice size L, $\beta$ value (to 4d.p.), number of samples and number of sweeps between measurement. E.g.,
 
       python src/observables/action.py 6 0.9000 200 350000
@@ -70,13 +79,15 @@ The directory `src/observables/` contains two python scripts and a python module
     The output is saved into directory `data/observables/pd/L.L.L.L/` in `.h5` format.
 * `src/observables/configurations.py` a module used to parse lattice configurations from raw configuration data files.
 
-### Performing the analysis
+### Performing the analysis (Step 3)
+
 The python script `src/analysis/analysis.py` which
+
 * makes directories `cached_data/`, `reports/` and `reports/figures/` (if they don't exist already),
 * computes the average action observable and the Betti number observables, then saves figures in `.pdf` format into `reports/figures/`,
 * and outputs results from a finite-size scaling analysis into `reports/`
-    * in `.csv` format (with header) 
-    * and in `.tex` format (for a LaTeX table).
+  * in `.csv` format (with header)
+  * and in `.tex` format (for a LaTeX table).
 
 Intermediary files, for caching and running the code quickly second time round, are stored in the directory `cached_data/`. To use the files in `cached_data.tar.gz` (from the [data release][data]), it is important to ensure the correct random seeds are used. With the cached data files, `src/analysis/analysis.py` takes less than a minute to run; without them, it takes about an hour.
 
@@ -87,6 +98,7 @@ The script is run using
       python src/analysis/analysis.py
 
 ---
+
 ## Project Organisation
 
     ├── LICENSE
@@ -97,7 +109,7 @@ The script is run using
     │
     ├── cached_data        <- Intermediary cached data files in .h5 format for faster reproduction of results.
     ├── reports            <- Generated tables used in the paper as .csv and .tex.
-    │   └── figures        <- Generated figures used in the paper as .png.
+    │   └── figures        <- Generated figures used in the paper as .pdf.
     │
     ├── environment.yml    <- The requirements file for reproducing the Conda environment.
     │                         
@@ -123,3 +135,6 @@ The script is run using
 [mc_AUTHORS]: src/data/AUTHORS
 [mc_install]: src/data/INSTALL
 [binder]: https://mybinder.org/
+[step_1]: (##code-to-generate-lattice-configuration-data-(step-1))
+[step_2]: (## Processing the raw lattice configuration data (Step 2))
+[step_3]: (### Performing the analysis (Step 3))

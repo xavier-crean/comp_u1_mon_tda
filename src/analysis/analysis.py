@@ -695,7 +695,7 @@ rw_betas_linear = [
 rw_means_linear = []
 rw_vars_linear = []
 for l in range(len(Ls)):
-    filename = f"cached_data/cache_rw_{np.min(rw_betas_linear[l])}-{np.max(rw_betas_linear[l])}_Ls={Ls[l]}_E.h5"
+    filename = f"cached_data/cache_rw_{np.min(rw_betas_linear[l]):.4f}-{np.max(rw_betas_linear[l]):.4f}_Ls={Ls[l]}_E.h5"
     if os.path.exists(filename):
         with h5py.File(filename, "r") as hf:
             rw_means_linear.append(hf["rw_means_linear"][()])
@@ -719,7 +719,7 @@ rw_vars_linear_E = np.concatenate(rw_vars_linear)
 rw_means_linear = []
 rw_vars_linear = []
 for l in range(len(Ls)):
-    filename = f"cached_data/cache_rw_{np.min(rw_betas_linear[l])}-{np.max(rw_betas_linear[l])}_Ls={Ls[l]}_H0.h5"
+    filename = f"cached_data/cache_rw_{np.min(rw_betas_linear[l]):.4f}-{np.max(rw_betas_linear[l]):.4f}_Ls={Ls[l]}_H0.h5"
     if os.path.exists(filename):
         with h5py.File(filename, "r") as hf:
             rw_means_linear.append(hf["rw_means_linear"][()])
@@ -743,7 +743,7 @@ rw_vars_linear_b0 = np.concatenate(rw_vars_linear)
 rw_means_linear = []
 rw_vars_linear = []
 for l in range(len(Ls)):
-    filename = f"cached_data/cache_rw_{np.min(rw_betas_linear[l])}-{np.max(rw_betas_linear[l])}_Ls={Ls[l]}_H1.h5"
+    filename = f"cached_data/cache_rw_{np.min(rw_betas_linear[l]):.4f}-{np.max(rw_betas_linear[l]):.4f}_Ls={Ls[l]}_H1.h5"
     if os.path.exists(filename):
         with h5py.File(filename, "r") as hf:
             rw_means_linear.append(hf["rw_means_linear"][()])
