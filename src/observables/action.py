@@ -41,7 +41,7 @@ def main():
     plaqs = map(plaquettes, confs_b)
     act = np.array(list(map(action, plaqs)))
 
-    filename = f"data/observables/action/{Ls}.{Ls}.{Ls}.{Ls}/action_mon_Ns={Ls}{Ls}{Ls}{Ls}_b={b:.4f}.h5"
+    filename = f"data/observables/action/{Ls}.{Ls}.{Ls}.{Ls}/action_mon_Ls={Ls}{Ls}{Ls}{Ls}_b={b:.4f}.h5"
     with h5py.File(filename, "w") as hf:
         hf.create_dataset("action", data=act)
 
