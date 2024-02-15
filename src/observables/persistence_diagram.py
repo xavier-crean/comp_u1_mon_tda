@@ -170,7 +170,7 @@ def main():
     # Set beta
     b = argv[2]
 
-    # Number of sampled configurations
+    # Set number of sampled configurations
     N = argv[3]
 
     # Set number of sweeps between measurement in the Markov chain
@@ -179,7 +179,7 @@ def main():
     # Markov chain recording length
     rec_len = N * sweep_step
 
-    # Define number of parallel computations
+    # Set number of parallel computations
     NP = argv[5]
 
     # Homology is computed via a Cubical Persistence method from giotto-tda

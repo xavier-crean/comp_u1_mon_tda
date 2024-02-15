@@ -22,7 +22,7 @@ def main():
     # Set beta
     b = float(argv[2])
 
-    # Number of sampled configurations
+    # Set number of sampled configurations
     N = argv[3]
 
     # Set number of sweeps between measurement in the Markov chain
