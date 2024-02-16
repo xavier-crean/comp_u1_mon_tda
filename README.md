@@ -10,7 +10,9 @@ This repository accompanies the paper [Topological Data Analysis of Monopoles in
 
 A [directory tree](#project-organisation) is included at the bottom of this file.
 
-Alongside this repository, there exists [an accompanying data release][data] where [Step 1][step_1] and [Step 2][step_2] have been pre-computed. Therefore, to reproduce analysis from the paper using the data release, the user is referred to [Step 3][step_3] ([setup instructions](#setup) are included below).
+Alongside this repository, there exists [an accompanying data release][data] where [Step 1][step_1] and [Step 2][step_2] in the pipeline have been pre-computed. Therefore, to reproduce analysis from the paper using the data release, the user is referred to [Step 3][step_3] ([setup instructions](#setup) are included below).
+
+Using Binder ([see below](#binder)), a Docker container has been constructed for reproduction of results from the paper without the need to install dependencies.
 
 ## Code to generate lattice configuration data (Step 1)
 
@@ -26,8 +28,10 @@ Using this code, one may reproduce the ensemble averages quoted in the [paper][p
 
 The code to perform analysis of lattice gauge field configurations is written in Python. See Section 2.2 and Section 3 in the [paper][paper]. It consists of two steps:
 
-* [Step 2][step_2]: Raw lattice configuration data is processed by the scripts in directory `src/observables/`. Collectively, this may take several hours to compute. For reproducibility, our processed data is included in the [data release][data] to be stored in directory `data/observables/`.
-* [Step 3][step_3]: Plots and results from the [paper][paper] may be reproduced by running the script `src/analysis/analysis.py`. This will generate cached data, stored in `cached_data/`, for quicker re-runs. The pre-computed cached data has been provided in the [data release][data].
+* [Step 2][step_2]: Raw lattice configuration data is processed by the scripts in directory `src/observables/`. Collectively, this may take several hours to compute. For reproducibility, our processed data is included in the [data release][data] and, once extracted, is stored in directory `data/observables/`.
+* [Step 3][step_3]: Plots and results from the [paper][paper] may be reproduced by running the script `src/analysis/analysis.py` which takes about an hour to run. This will generate [cached data](#cached-data-files), stored in `cached_data/`, for quicker re-runs. 
+  
+  **N.B.** Pre-computed cached data has also been provided in the [data release][data]; with cached data, `src/analysis/analysis.py` takes about one minute to run.
 
 In this section of the pipeline, data files are stored in the [HDF5 format][hdf5].
 
@@ -67,7 +71,6 @@ The commands below refer to a Linux or compatible environment and need to be run
 Using [mybinder.org][binder], a Docker container with [necessary dependencies](#requirements) has been constructed for reproduction of the results in the paper. Note that the [data release][data] must be uploaded and extracted into the root directory (see [data release setup](#data-release)).
 
 [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/xavier-crean/comp_u1_mon_tda.git/HEAD)
-<!-- [![Binder](https://mybinder.org/badge_logo.svg)](https://mybinder.org/v2/gh/xc2237451/comp_u1_mon_tda.git/HEAD) -->
 
 ---
 
@@ -97,13 +100,15 @@ The python script `src/analysis/analysis.py` which
   * in `.csv` format (with header)
   * and in `.tex` format (for a LaTeX table).
 
-Intermediary files, for caching and running the code quickly second time round, are stored in the directory `cached_data/`. To use the files in `cached_data.tar.gz` (from the [data release][data]), it is important to ensure the correct random seeds are used. With the cached data files, `src/analysis/analysis.py` takes less than a minute to run; without them, it takes about an hour.
-
-**N.B.** if `cached_data.tar.gz` is extracted into the root, then `src/analysis/analysis.py` will read from this directory. If you are trying to reproduce the analysis using `data.tar.gz`, you will need to delete or rename the directory `cached_data/`.
-
 The script is run using
 
       python src/analysis/analysis.py
+
+#### Cached Data Files
+
+Intermediary files, for caching and running the code quickly second time round, are stored in the directory `cached_data/`. To use the files in `cached_data.tar.gz` (from the [data release][data]), it is important to ensure the correct random seeds are used. With the cached data files, `src/analysis/analysis.py` takes less than a minute to run; without them, it takes about an hour.
+
+**N.B.** if `cached_data.tar.gz` is extracted into the root, then `src/analysis/analysis.py` will read from this directory. If you are trying to reproduce the analysis using `data.tar.gz`, you will need to delete or rename the directory `cached_data/`.
 
 ---
 
