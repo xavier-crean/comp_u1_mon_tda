@@ -29,7 +29,7 @@ A [directory tree](#project-organisation) is included at the bottom of this file
 
 Alongside this repository, there exists [an accompanying data release][data] where [Step 1][step_1] and [Step 2][step_2] in the pipeline have been pre-computed. Therefore, to reproduce analysis from the paper using the data release, the user is referred to [Step 3][step_3] ([setup instructions](#setup) are included below).
 
-Using Binder ([see below](#binder)), a Docker container has been constructed for reproduction of results from the paper without the need to install dependencies.
+Using Binder, a Docker container has been constructed for reproduction of results from the paper (without the need to install Python or dependencies) and can be accessed online ([see below](#binder)).
 
 ## Code to generate lattice configuration data (Step 1)
 
