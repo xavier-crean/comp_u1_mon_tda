@@ -1,5 +1,22 @@
 # Topological Data Analysis of Monopoles in U(1) Lattice Gauge Theory
 
+## Contents
+
+- [Topological Data Analysis of Monopoles in U(1) Lattice Gauge Theory](#topological-data-analysis-of-monopoles-in-u1-lattice-gauge-theory)
+  - [Contents](#contents)
+  - [Overview](#overview)
+  - [Code to generate lattice configuration data (Step 1)](#code-to-generate-lattice-configuration-data-step-1)
+  - [Code to process and analyse configuration data (Step 2 \& Step 3)](#code-to-process-and-analyse-configuration-data-step-2--step-3)
+    - [Setup](#setup)
+      - [Requirements](#requirements)
+      - [Installation](#installation)
+      - [Data Release](#data-release)
+    - [Binder](#binder)
+    - [Processing the raw lattice configuration data (Step 2)](#processing-the-raw-lattice-configuration-data-step-2)
+    - [Performing the analysis (Step 3)](#performing-the-analysis-step-3)
+      - [Cached data files](#cached-data-files)
+  - [Project organisation](#project-organisation)
+
 ## Overview
 
 This repository accompanies the paper [Topological Data Analysis of Monopoles in U(1) Lattice Gauge Theory][paper]. It contains code for
@@ -104,7 +121,7 @@ The script is run using
 
       python src/analysis/analysis.py
 
-#### Cached Data Files
+#### Cached data files
 
 Intermediary files, for caching and running the code quickly second time round, are stored in the directory `cached_data/`. To use the files in `cached_data.tar.gz` (from the [data release][data]), it is important to ensure the correct random seeds are used. With the cached data files, `src/analysis/analysis.py` takes less than a minute to run; without them, it takes about an hour.
 
@@ -112,7 +129,7 @@ Intermediary files, for caching and running the code quickly second time round, 
 
 ---
 
-## Project Organisation
+## Project organisation
 
     ├── LICENSE
     ├── README.md          <- The top-level README for developers using this project.
