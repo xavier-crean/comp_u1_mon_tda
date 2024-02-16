@@ -77,7 +77,7 @@ The commands below refer to a Linux or compatible environment and need to be run
 * Download the `data.tar.gz` from [the accompanying data release][data] and extract into the root directory of the repository using
 
         tar -xf data.tar.gz
-* To use pre-computed cached data files, for fast reproduction of the results in the paper, download `cached_data.tar.gz` from the [data release][data] and extract into the root directory of the repository using
+* To use **pre-computed** [cached data files](#cached-data-files), for fast reproduction of the results in the paper, download `cached_data.tar.gz` from the [data release][data] and extract into the root directory of the repository using
 
         tar -xf cached_data.tar.gz
 
