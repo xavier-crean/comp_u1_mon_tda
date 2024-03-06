@@ -21,6 +21,5 @@ authors:
     email: b.lucini@swansea.ac.uk
     affiliation: Swansea University
     orcid: 'https://orcid.org/0000-0001-8974-8266'
-identifiers:
-  - type: doi
-    value: 
+repository-code: 'https://github.com/xavier-crean/comp_u1_mon_tda.git'
+license: GPL-3.0
