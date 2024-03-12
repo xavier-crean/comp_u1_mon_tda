@@ -5,6 +5,7 @@ reports/
 data_release/
 *.ipynb
 
+xREADME.md
 data.tar.gz
 cached_data.tar.gz
 
