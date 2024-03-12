@@ -2,6 +2,7 @@ data/
 *cached_data/
 !src/data/
 reports/
+data_release/
 *.ipynb
 
 data.tar.gz

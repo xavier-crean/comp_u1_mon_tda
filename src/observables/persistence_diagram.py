@@ -1,6 +1,7 @@
 import numpy as np
 import itertools
 from gtda.homology import CubicalPersistence
+from opt_einsum import contract
 import h5py
 from multiprocessing import Pool
 from sys import argv
@@ -84,7 +85,7 @@ def mon(plang):
                     ]
                     - n[t, x, y, z]
                 )
-                total += np.einsum("mn,mn->", levi[r, s], n_diff)
+                total += contract("mn,mn->", levi[r, s], n_diff)
             M[t, x, y, z][r] = total
 
     # monopole dual 1-cube array
