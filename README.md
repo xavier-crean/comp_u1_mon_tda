@@ -21,8 +21,8 @@
 
 This repository accompanies the paper [Topological Data Analysis of Monopoles in U(1) Lattice Gauge Theory][paper]. It contains code for
 
-1. [generating U(1) lattice gauge field configurations][step_1] via Monte Carlo simulation, 
-2. [computing observables][step_2] from lattice configurations, 
+1. [generating U(1) lattice gauge field configurations][step_1] via Monte Carlo simulation,
+2. [computing observables][step_2] from lattice configurations,
 3. [producing plots and results][step_3] included in the [paper][paper].
 
 A [directory tree](#project-organisation) is included at the bottom of this file.
@@ -123,7 +123,7 @@ The script is run using
 
 #### Cached data files
 
-Intermediary files, for caching and running the code quickly second time round, are stored in the directory `cached_data/`. To use the files in `cached_data.tar.gz` (from the [data release][data]), it is important to ensure the correct random seeds are used. With the cached data files, `src/analysis/analysis.py` takes less than a minute to run; without them, it takes about an hour.
+Intermediary files, for caching and running the code quickly second time round, are stored in the directory `cached_data/`. To use the files in `cached_data.tar.gz` (from the [data release][data]), it is important to ensure the **original** random seeds are used (as found in `src/analysis/analysis.py`). With the cached data files, `src/analysis/analysis.py` takes less than a minute to run; without them, it takes about an hour.
 
 **N.B.** if `cached_data.tar.gz` is extracted into the root, then `src/analysis/analysis.py` will read from this directory. If you are trying to reproduce the analysis using `data.tar.gz`, you will need to delete or rename the directory `cached_data/`.
 
