@@ -21,5 +21,24 @@ authors:
     email: b.lucini@swansea.ac.uk
     affiliation: Swansea University
     orcid: 'https://orcid.org/0000-0001-8974-8266'
+identifiers:
+  - type: doi
+    value: 10.5281/zenodo.10806185
+    description: >-
+      X. Crean, J. Giansiracusa and B. Lucini, Topological
+      Data Analysis of Monopoles in U(1) Lattice Gauge
+      Theory—Monte Carlo and analysis code release
 repository-code: 'https://github.com/xavier-crean/comp_u1_mon_tda.git'
+abstract: >-
+  This repository accompanies the paper X. Crean, J.
+  Giansiracusa and B. Lucini, Topological Data Analysis of
+  Monopoles in U(1) Lattice Gauge Theory. It contains code
+  for generating U(1) lattice gauge field configurations via
+  Monte Carlo simulation and subsequent Topological Data
+  Analysis to produce plots and results included in the
+  paper.
+keywords:
+  - Lattice
+  - Topological Data Analysis (TDA)
+  - Monopole
 license: GPL-3.0

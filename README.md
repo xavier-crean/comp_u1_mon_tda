@@ -1,8 +1,8 @@
-# Topological Data Analysis of Monopoles in U(1) Lattice Gauge Theory
+# Topological Data Analysis of Monopoles in U(1) Lattice Gauge Theory - Monte Carlo and Analysis Code Release
 
 ## Contents
 
-- [Topological Data Analysis of Monopoles in U(1) Lattice Gauge Theory](#topological-data-analysis-of-monopoles-in-u1-lattice-gauge-theory)
+- [Topological Data Analysis of Monopoles in U(1) Lattice Gauge Theory - Monte Carlo and Analysis Code Release](#topological-data-analysis-of-monopoles-in-u1-lattice-gauge-theory---monte-carlo-and-analysis-code-release)
   - [Contents](#contents)
   - [Overview](#overview)
   - [Code to generate lattice configuration data (Step 1)](#code-to-generate-lattice-configuration-data-step-1)
@@ -159,8 +159,8 @@ Intermediary files, for caching and running the code quickly second time round, 
             └── analysis.py
 ---
 
-[data]: 
-[paper]: 
+[data]: https://doi.org/10.5281/zenodo.10806046
+[paper]: https://arxiv.org/abs/2403.07739
 [mc_README]: src/data/README
 [mc_AUTHORS]: src/data/AUTHORS
 [mc_install]: src/data/INSTALL
